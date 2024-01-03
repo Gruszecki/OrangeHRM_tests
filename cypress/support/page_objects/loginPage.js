@@ -1,13 +1,7 @@
 class loginPage {
     submitLoginData(username, password) {
-        if (username) {
-            cy.get('input[name="username"]').type(username)
-        }
-        
-        if (password) {
-            cy.get('input[type="password"]').type(password)
-        }
-        
+        if (username) { cy.get('input[name="username"]').type(username) }
+        if (password) { cy.get('input[type="password"]').type(password) }
         cy.get('button[type="submit"]').click()
     }
 

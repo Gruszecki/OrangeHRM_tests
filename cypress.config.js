@@ -8,7 +8,7 @@ module.exports = defineConfig({
     password: 'admin123'
   },
   e2e: {
-    baseUrl: 'https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index',
+    baseUrl: 'https://opensource-demo.orangehrmlive.com',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     setupNodeEvents(on, config) {
       // implement node event listeners here
