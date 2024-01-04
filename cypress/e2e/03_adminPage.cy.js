@@ -1,12 +1,13 @@
 /// <reference types="cypress" />
 
-let USERNAME = 'Wojciech'
-
-import { onAddUserPage } from "../support/page_objects/addUserPage"
+import { onAddUserPrivilegesPage } from "../support/page_objects/addUserPrivilegesPage"
 import { onAdminPage } from "../support/page_objects/adminPage"
 import { onLoginPage } from "../support/page_objects/loginPage"
 import { navigateTo } from "../support/page_objects/navigation"
 import { enumUserRoles, enumUserStatus } from "../support/enums"
+import { onPimPage } from "../support/page_objects/pimPage"
+import { onAddEmployeePage } from "../support/page_objects/addEmployeePage"
+import { topbar } from "../support/page_objects/topbar"
 
 describe('Admin page content', () => {
     beforeEach('Go to login page', () => {
@@ -25,19 +26,19 @@ describe('User rights CRUD', () => {
         cy.openLoginPage()
         onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
         navigateTo.pimPage()
-        // Create new user
+        onPimPage.clickAdd()
+        onAddEmployeePage.saveNewUser('John', undefined, 'Montelupi')
+        topbar.logout()
     })
 
     beforeEach('Go to login page', () => {
-        if(!onLoginPage.verifyLoginPass) {
-            cy.openLoginPage()
-            onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
-        }
+        cy.openLoginPage()
+        onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
         navigateTo.adminPage()
     })
 
     it.only('Create valid user\'s right', () => {
         onAdminPage.clickAdd()
-        onAddUserPage.saveNewUser(enumUserRoles.admin, undefined, enumUserStatus.enabled)
+        onAddUserPrivilegesPage.saveNewUser(enumUserRoles.admin, undefined, enumUserStatus.enabled)
     })
 })

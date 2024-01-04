@@ -1,4 +1,4 @@
-class AddUserPage {
+class AddUserPrivilegesPage {
     saveNewUser(userRole, employeeName, userStatus, username, password, confirmPassword) {
         this.fillFields(userRole, employeeName, userStatus, username, password, confirmPassword)
     }
@@ -15,4 +15,4 @@ class AddUserPage {
     }
 }
 
-export const onAddUserPage = new AddUserPage()
+export const onAddUserPrivilegesPage = new AddUserPrivilegesPage()

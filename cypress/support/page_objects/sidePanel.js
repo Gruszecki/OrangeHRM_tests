@@ -10,6 +10,13 @@ class SidePanel {
     getWidth() {
         return cy.get('.oxd-navbar-nav').invoke('prop', 'offsetWidth')
     }
+
+    logout() {
+        cy.get('.oxd-topbar-header-userarea').then(userArea => {
+            cy.wrap(userArea).find('i').click()
+            cy.wrap(userArea).find('li', 'Logout').click()
+        })
+    }
 }
 
 export const sidePanel = new SidePanel()

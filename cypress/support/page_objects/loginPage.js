@@ -6,7 +6,7 @@ class loginPage {
     }
 
     verifyLoginPass() {
-        cy.get('header').should('contain', 'Dashboard')
+        cy.get('.oxd-topbar-header-userarea').should('exist')
     }
 
     verifyLoginFail() {
