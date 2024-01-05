@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
+import { general } from "../support/page_objects/general"
 import { onLoginPage } from "../support/page_objects/loginPage"
 import { navigateTo } from "../support/page_objects/navigation"
-import { sidePanel } from "../support/page_objects/sidePanel"
 
 describe('Operations with side panel', () => {
     beforeEach('Go to login page', () => {
@@ -26,10 +26,10 @@ describe('Operations with side panel', () => {
     })
 
     it('Hide/show side panel', () => {
-        sidePanel.hide()
-        sidePanel.getWidth().should('equal', 83)
-        sidePanel.show()
-        sidePanel.getWidth().should('equal', 256)
+        general.hideSidePanel()
+        general.getSidePanelWidth().should('equal', 83)
+        general.showSidePanel()
+        general.getSidePanelWidth().should('equal', 256)
     })
     
 })

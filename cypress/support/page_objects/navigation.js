@@ -1,56 +1,56 @@
-function selectMenuItem(name) {
-    cy.get('.oxd-sidepanel-body').contains('li', name).click()
-}
-
 class NavigationPage {
+    selectMenuItem(name) {
+        cy.get('.oxd-sidepanel-body').contains('li', name).click()
+    }
+    
     adminPage() {
-        selectMenuItem('Admin')
+        this.selectMenuItem('Admin')
     }
 
     pimPage() {
-        selectMenuItem('PIM')
+        this.selectMenuItem('PIM')
     }
     
     leavePage() {
-        selectMenuItem('Leave')
+        this.selectMenuItem('Leave')
     }
     
     timePage() {
-        selectMenuItem('Time')
+        this.selectMenuItem('Time')
     }
     
     recruitmentPage() {
-        selectMenuItem('Recruitment')
+        this.selectMenuItem('Recruitment')
     }
     
     myInfoPage() {
-        selectMenuItem('My Info')
+        this.selectMenuItem('My Info')
     }
     
     performancePage() {
-        selectMenuItem('Performance')
+        this.selectMenuItem('Performance')
     }
     
     dashboardPage() {
-        selectMenuItem('Dashboard')
+        this.selectMenuItem('Dashboard')
     }
     
     directoryPage() {
-        selectMenuItem('Directory')
+        this.selectMenuItem('Directory')
     }
     
     maintenancePage() {
-        selectMenuItem('Maintenance')
+        this.selectMenuItem('Maintenance')
         cy.get('input[name="password"]').type(Cypress.env('password'))
         cy.get('button[type="submit"]').click()
     }
     
     claimPage() {
-        selectMenuItem('Claim')
+        this.selectMenuItem('Claim')
     }
     
     buzzPage() {
-        selectMenuItem('Buzz')
+        this.selectMenuItem('Buzz')
     }
 }
 
