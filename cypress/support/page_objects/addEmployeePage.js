@@ -2,17 +2,6 @@ import { enumAddEmployeeLabels } from "../enums"
 import { general } from "./general"
 
 class AddEmployeePage {
-    saveNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
-        this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
-        general.clickButton('Save')
-        general.verifySuccessToast()
-    }
-
-    cancelNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
-        this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
-        general.clickButton('Cancel')
-    }
-
     fillFields(firstName, middleName, lastName, id, createLoginDetails=false, username, userStatus, password, confirmPassword) {
         if(firstName) { cy.get('input[name="firstName"]').type(firstName) }
         if(middleName) { cy.get('input[name="middleName"]').type(middleName) }
@@ -26,6 +15,17 @@ class AddEmployeePage {
             if (password) { cy.contains('.oxd-input-group', 'Password').not('Confirm').find('input').type(password) }
             if (confirmPassword) { cy.contains('.oxd-input-group', 'Confirm Password').find('input').type(confirmPassword) }
         }
+    }
+
+    saveNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
+        this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
+        general.clickButton('Save')
+        general.verifySuccessToast()
+    }
+
+    cancelNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
+        this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
+        general.clickButton('Cancel')
     }
 }
 

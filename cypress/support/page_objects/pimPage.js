@@ -1,4 +1,4 @@
-import { enumEmployeeIncludeCurrentPast, enumEmployeeInformationLabels } from "../enums"
+import { enumEmployeeInformationLabels } from "../enums"
 import { general } from "./general"
 
 class PimPage {
@@ -6,10 +6,10 @@ class PimPage {
         if(employeeName) { general.fillInputBoxWithHint(enumEmployeeInformationLabels.employeeName, employeeName) }
         if(employeeId) { general.fillInputBox(enumEmployeeInformationLabels.employeeId, employeeId) }
         if(employmentStatus) { general.selectFromDropdown(enumEmployeeInformationLabels.employmentStatus, employmentStatus) }
-        if(include) { general.selectFromDropdown(enumEmployeeInformationLabels.include, enumEmployeeIncludeCurrentPast.current) }
+        if(include) { general.selectFromDropdown(enumEmployeeInformationLabels.include, include) }
         if(supervisorName) { general.fillInputBoxWithHint(enumEmployeeInformationLabels.supervisorName, supervisorName) }
-        if(jobTitle) { general.selectFromDropdown(enumEmployeeInformationLabels.jobTitle, enumEmployeeIncludeCurrentPast.jobTitle) }
-        if(subUnit) { general.selectFromDropdown(enumEmployeeInformationLabels.subUnit, enumEmployeeIncludeCurrentPast.subUnit) }
+        if(jobTitle) { general.selectFromDropdown(enumEmployeeInformationLabels.jobTitle, jobTitle) }
+        if(subUnit) { general.selectFromDropdown(enumEmployeeInformationLabels.subUnit, subUnit) }
     }
 
     deleteUserById(id) {

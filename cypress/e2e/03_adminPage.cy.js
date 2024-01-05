@@ -23,11 +23,13 @@ describe('Admin page content', () => {
 
 describe('User rights CRUD', () => {
     const FIRSTNAME = general.generateRandomName(3)
+    const MIDDLENAME = general.generateRandomName(4)
     const LASTNAME = general.generateRandomName(5)
     const PASSWORD = general.generateRandomPassword(10)
+    const USERNAME = `${FIRSTNAME.charAt(0)}${LASTNAME}`
     var EMPLOYEE_ID = ''
 
-    console.log(`Generated user name: ${FIRSTNAME} ${LASTNAME}`)
+    console.log(`Generated user name: ${FIRSTNAME} ${MIDDLENAME} ${LASTNAME}`)
 
     before('Create new user', () => {
         cy.openLoginPage()
@@ -68,9 +70,18 @@ describe('User rights CRUD', () => {
             enumUserRoles.admin, 
             `${FIRSTNAME} ${LASTNAME}`, 
             enumUserStatus.enabled, 
-            `${FIRSTNAME.charAt(0)}${LASTNAME}`, 
+            USERNAME, 
             PASSWORD, 
             PASSWORD
+        )
+
+        general.verifySuccessToast()
+        navigateTo.adminPage()
+        onAdminPage.verifyNewUsersPrivileges(
+            USERNAME, 
+            enumUserRoles.admin, 
+            `${FIRSTNAME} ${LASTNAME}`, 
+            enumUserStatus.enabled
         )
     })
 })

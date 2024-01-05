@@ -1,4 +1,14 @@
+import { enumAddUserPrivilegesLabels } from "../enums"
+import { general } from "./general"
+
 class AdminPage {
+    fillFields(username, userRole, employeeName, status) {
+        if(username) { general.fillInputBox(enumAddUserPrivilegesLabels.username, username) }
+        if(userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
+        if(employeeName) { general.fillInputBoxWithHint(enumAddUserPrivilegesLabels.employeeName, employeeName) }
+        if(status) { general.selectFromDropdown(enumAddUserPrivilegesLabels.status, status) }
+    }
+
     clickAdd() {
         cy.contains('button', 'Add').click()
     }
@@ -38,7 +48,18 @@ class AdminPage {
         })
     }
 
+    verifyNewUsersPrivileges(username, userRole, employeeName, status) {
+        cy.contains('.oxd-input-group', enumAddUserPrivilegesLabels.username).find('input').then(usernameInput => {
+            this.fillFields(username)
+            general.clickButton('Search')
+        })
 
+        cy.contains('.oxd-table-row', username).then(tableRow => {
+            cy.wrap(tableRow).should('contain', userRole)
+            cy.wrap(tableRow).should('contain', employeeName)
+            cy.wrap(tableRow).should('contain', status)
+        })
+    }
 }
 
 export const onAdminPage = new AdminPage()

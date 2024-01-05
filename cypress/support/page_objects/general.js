@@ -42,18 +42,18 @@ class General {
         return randomPassword
     }
 
-    fillInputBox(labelName, content) {
-        cy.contains('.oxd-input-group', labelName).find('input').type(content)
+    fillInputBox(labelName, value) {
+        cy.contains('.oxd-input-group', labelName).find('input').type(value)
     }
 
-    fillInputBoxWithHint(labelName, content) {
-        cy.contains('.oxd-input-group', labelName).find('input').type(content)
-        cy.get('[role="option"]').contains(content).click()
+    fillInputBoxWithHint(labelName, value) {
+        cy.contains('.oxd-input-group', labelName).find('input').type(value)
+        cy.get('[role="option"]').contains(value).click()
     }
 
-    selectFromDropdown(labelName, content) {
+    selectFromDropdown(labelName, value) {
         cy.contains('.oxd-input-group', labelName).find('i').click()
-        cy.get('[role="listbox"] [role="option"]').contains(content).click()
+        cy.get('[role="listbox"] [role="option"]').contains(value).click()
     }
 
     clickButton(buttonText) {
