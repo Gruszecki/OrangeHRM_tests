@@ -37,7 +37,7 @@ describe('User rights CRUD', () => {
         navigateTo.pimPage()
         onPimPage.clickAdd()
 
-        // Get user ID
+        // Get user ID if not provided
         if(!EMPLOYEE_ID) {
             cy.get('.oxd-input-group').then(idLabel => {        
                 cy.wrap(idLabel)
@@ -67,7 +67,7 @@ describe('User rights CRUD', () => {
         onPimPage.deleteUserById(EMPLOYEE_ID)
     })
 
-    it.only('Create valid user\'s privileges', () => {
+    it('Create valid user\'s privileges', () => {
         onAdminPage.clickAdd()
         onAddUserPrivilegesPage.saveNewUser(
             enumUserRoles.admin, 

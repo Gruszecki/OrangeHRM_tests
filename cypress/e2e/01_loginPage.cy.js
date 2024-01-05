@@ -8,7 +8,7 @@ describe('Login to Dashboard', () => {
         onLoginPage.verifyPageContent()
     })
 
-    it.only('Correct credentials', () => {
+    it('Correct credentials', () => {
         cy.openLoginPage()
         onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
         onLoginPage.verifyLoginPass()
