@@ -43,11 +43,11 @@ class General {
     }
 
     fillInputBox(labelName, value) {
-        cy.contains('.oxd-input-group', labelName).find('input').type(value)
+        cy.contains('.oxd-input-group', labelName).find('input').clear().type(value)
     }
 
     fillInputBoxWithHint(labelName, value) {
-        cy.contains('.oxd-input-group', labelName).find('input').type(value)
+        cy.contains('.oxd-input-group', labelName).find('input').clear().type(value)
         cy.get('[role="option"]').contains(value).click()
     }
 

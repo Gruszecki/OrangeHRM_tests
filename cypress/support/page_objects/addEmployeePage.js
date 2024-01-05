@@ -3,10 +3,15 @@ import { general } from "./general"
 
 class AddEmployeePage {
     fillFields(firstName, middleName, lastName, id, createLoginDetails=false, username, userStatus, password, confirmPassword) {
+        // if(firstName) { cy.get('input[name="firstName"]').type(firstName) }
+        // if(middleName) { cy.get('input[name="middleName"]').type(middleName) }
+        // if(lastName) { cy.get('input[name="lastName"]').type(lastName) }
+        // if(id) { cy.get('.orangehrm-employee-form [class="oxd-input oxd-input--active"]').clear().type(id) }
+
         if(firstName) { cy.get('input[name="firstName"]').type(firstName) }
         if(middleName) { cy.get('input[name="middleName"]').type(middleName) }
         if(lastName) { cy.get('input[name="lastName"]').type(lastName) }
-        if(id) { cy.get('.orangehrm-employee-form [class="oxd-input oxd-input--active"]').clear().type(id) }
+        if(id) { general.fillInputBox(enumAddEmployeeLabels.employeeId, id) }
         
         if(createLoginDetails || username || userStatus || password || confirmPassword) {
             cy.contains('div', 'Create Login Details').find('input').check({force: true})

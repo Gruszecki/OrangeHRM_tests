@@ -37,19 +37,22 @@ describe('User rights CRUD', () => {
         navigateTo.pimPage()
         onPimPage.clickAdd()
 
-        cy.get('.oxd-input-group').then(idLabel => {
-            cy.wrap(idLabel)
-                .contains(enumAddEmployeeLabels.employeeId)
-                .parents('.oxd-input-group')
-                .find('input')
-                .invoke('prop', 'value')
-                .then(readID => {
-                    EMPLOYEE_ID = readID
-                    console.log(`Employee ID: ${EMPLOYEE_ID}`)
-                })
-        })
+        // Get user ID
+        if(!EMPLOYEE_ID) {
+            cy.get('.oxd-input-group').then(idLabel => {        
+                cy.wrap(idLabel)
+                    .contains(enumAddEmployeeLabels.employeeId)
+                    .parents('.oxd-input-group')
+                    .find('input')
+                    .invoke('prop', 'value')
+                    .then(readID => {
+                        EMPLOYEE_ID = readID
+                        console.log(`Employee ID: ${EMPLOYEE_ID}`)
+                    })
+            })
+        }
 
-        onAddEmployeePage.saveNewUser(FIRSTNAME, undefined, LASTNAME)
+        onAddEmployeePage.saveNewUser(FIRSTNAME, undefined, LASTNAME, EMPLOYEE_ID)
         general.logout()
     })
 
