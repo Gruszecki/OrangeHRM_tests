@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { general } from "../support/page_objects/general"
+import { general } from "../support/general"
 import { onLoginPage } from "../support/page_objects/loginPage"
 import { navigateTo } from "../support/page_objects/navigation"
 
