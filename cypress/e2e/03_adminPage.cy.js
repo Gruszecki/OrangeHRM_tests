@@ -7,7 +7,7 @@ import { navigateTo } from "../support/page_objects/navigation"
 import { enumAddEmployeeLabels, enumUserRoles, enumUserStatus } from "../support/enums"
 import { onPimPage } from "../support/page_objects/pimPage"
 import { onAddEmployeePage } from "../support/page_objects/addEmployeePage"
-import { general } from "../support/page_objects/general"
+import { general } from "../support/general"
 
 describe('Admin page content', () => {
     beforeEach('Go to login page', () => {

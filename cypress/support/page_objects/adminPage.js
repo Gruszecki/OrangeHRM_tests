@@ -1,7 +1,8 @@
 import { enumAddUserPrivilegesLabels } from "../enums"
-import { general } from "./general"
+import { general } from "../general"
+import { PageInputSystem } from "../pageInputSystem"
 
-class AdminPage {
+class AdminPage extends PageInputSystem{
     fillFields(username, userRole, employeeName, status) {
         if(username) { general.fillInputBox(enumAddUserPrivilegesLabels.username, username) }
         if(userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
@@ -9,13 +10,9 @@ class AdminPage {
         if(status) { general.selectFromDropdown(enumAddUserPrivilegesLabels.status, status) }
     }
 
-    clickAdd() {
-        cy.contains('button', 'Add').click()
-    }
-
     deleteUsersPrivilegesByUsername(username) {
         this.fillFields(username)
-        general.clickButton('Search')
+        this.clickSearch()
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).find('.bi-trash').click()
             general.clickButton('Yes, Delete')
@@ -60,7 +57,7 @@ class AdminPage {
 
     verifyNewUsersPrivileges(username, userRole, employeeName, status) {
         this.fillFields(username)
-        general.clickButton('Search')
+        this.clickSearch()
 
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).should('contain', userRole)
@@ -71,8 +68,7 @@ class AdminPage {
 
     verifyNoUserFoundInTable(username) {
         this.fillFields(username)
-        general.clickButton('Search')
-
+        this.clickSearch()
         cy.get('.orangehrm-container').should('not.contain', '.oxd-table-body')
     }
 }

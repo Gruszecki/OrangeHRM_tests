@@ -1,7 +1,8 @@
 import { enumAddUserPrivilegesLabels } from "../enums"
-import { general } from "./general"
+import { general } from "../general"
+import { PageInputSystem } from "../pageInputSystem"
 
-class AddUserPrivilegesPage {
+class AddUserPrivilegesPage extends PageInputSystem{
     fillFields(userRole, employeeName, userStatus, username, password, confirmPassword) {
         if(userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
         if(employeeName) { general.fillInputBoxWithHint(enumAddUserPrivilegesLabels.employeeName, employeeName) }
@@ -10,19 +11,6 @@ class AddUserPrivilegesPage {
         if(password) { general.fillInputBox(enumAddUserPrivilegesLabels.password, password) }
         if(confirmPassword) { general.fillInputBox(enumAddUserPrivilegesLabels.confirmPassword, confirmPassword) }
     }
-
-    clickAdd() {
-        general.clickButton('Add')
-    }
-
-    clickSave() {
-        general.clickButton('Save')
-    }
-
-    clickCancel() {
-        general.clickButton('Cancel')
-    }
-
 }
 
 export const onAddUserPrivilegesPage = new AddUserPrivilegesPage()

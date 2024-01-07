@@ -1,7 +1,8 @@
 import { enumAddEmployeeLabels } from "../enums"
-import { general } from "./general"
+import { general } from "../general"
+import { PageInputSystem } from "../pageInputSystem"
 
-class AddEmployeePage {
+class AddEmployeePage extends PageInputSystem{
     fillFields(firstName, middleName, lastName, id, createLoginDetails=false, username, userStatus, password, confirmPassword) {
         if(firstName) { cy.get('input[name="firstName"]').type(firstName) }
         if(middleName) { cy.get('input[name="middleName"]').type(middleName) }
@@ -19,13 +20,13 @@ class AddEmployeePage {
 
     saveNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
         this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
-        general.clickButton('Save')
+        this.clickSave()
         general.verifyToast('Successfully Saved')
     }
 
     cancelNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
         this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
-        general.clickButton('Cancel')
+        this.clickCancel()
     }
 }
 
