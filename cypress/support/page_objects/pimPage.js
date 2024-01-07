@@ -18,7 +18,7 @@ class PimPage {
         cy.contains('.oxd-table-row', id).then(tableRow => {
             cy.wrap(tableRow).find('.bi-trash').click()
             general.clickButton('Yes, Delete')
-            general.verifySuccessToast()
+            general.verifyToast('Successfully Deleted')
         })
     }
 

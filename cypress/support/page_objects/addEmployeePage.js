@@ -20,7 +20,7 @@ class AddEmployeePage {
     saveNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {
         this.fillFields(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword)
         general.clickButton('Save')
-        general.verifySuccessToast()
+        general.verifyToast('Successfully Saved')
     }
 
     cancelNewUser(firstName, middleName, lastName, id, createLoginDetails, username, userStatus, password, confirmPassword) {

@@ -27,7 +27,7 @@ describe('User rights CRUD', () => {
     const LASTNAME = general.generateRandomName(5)
     const PASSWORD = general.generateRandomPassword(10)
     const USERNAME = `${FIRSTNAME.charAt(0)}${LASTNAME}`
-    var EMPLOYEE_ID = ''
+    var EMPLOYEE_ID = general.generateRandomId()
 
     console.log(`Generated user name: ${FIRSTNAME} ${MIDDLENAME} ${LASTNAME}`)
 
@@ -69,7 +69,7 @@ describe('User rights CRUD', () => {
 
     it('Create valid user\'s privileges', () => {
         onAdminPage.clickAdd()
-        onAddUserPrivilegesPage.saveNewUser(
+        onAddUserPrivilegesPage.fillFields(
             enumUserRoles.admin, 
             `${FIRSTNAME} ${LASTNAME}`, 
             enumUserStatus.enabled, 
@@ -77,8 +77,9 @@ describe('User rights CRUD', () => {
             PASSWORD, 
             PASSWORD
         )
+        onAddUserPrivilegesPage.clickSave()
 
-        general.verifySuccessToast()
+        general.verifyToast('Successfully Saved')
         navigateTo.adminPage()
         onAdminPage.verifyNewUsersPrivileges(
             USERNAME, 
@@ -86,5 +87,25 @@ describe('User rights CRUD', () => {
             `${FIRSTNAME} ${LASTNAME}`, 
             enumUserStatus.enabled
         )
+
+        navigateTo.adminPage()
+        onAdminPage.deleteUsersPrivilegesByUsername(USERNAME)
+    })
+
+    it('Cancel adding user\'s privileges', () => {
+        onAdminPage.clickAdd()
+        onAddUserPrivilegesPage.fillFields(
+            enumUserRoles.admin, 
+            `${FIRSTNAME} ${LASTNAME}`, 
+            enumUserStatus.enabled, 
+            USERNAME, 
+            PASSWORD, 
+            PASSWORD
+        )
+        onAddUserPrivilegesPage.clickCancel()
+        navigateTo.adminPage()
+
+        onAdminPage.verifyNoUserFoundInTable(USERNAME)
+        general.verifyToast('No Records Found')
     })
 })

@@ -38,9 +38,19 @@ class General {
     }
 
     generateRandomPassword(numberOfCharacters) {
-        let randomPassword = this.generateRandomName(numberOfCharacters-1) + '0123456789'.charAt(Math.floor(Math.random)*10)
+        let randomPassword = this.generateRandomName(numberOfCharacters-1) + Math.floor(Math.random()*10)
         return randomPassword
     }
+    
+    generateRandomId() {
+        let randomId = ''
+        
+        for (let i=0; i < 4; i++) {
+            randomId += Math.floor(Math.random()*10)
+        }
+        console.log(`Generated user ID: ${randomId}`)
+        return randomId
+    }   
 
     fillInputBox(labelName, value) {
         cy.contains('.oxd-input-group', labelName).find('input').clear().type(value)
@@ -60,8 +70,8 @@ class General {
         cy.contains('button', buttonText).click()
     }
 
-    verifySuccessToast() {
-        cy.get('.oxd-toast').should('contain', 'Success')
+    verifyToast(info) {
+        cy.get('.oxd-toast').should('contain', info)
     }
 }
 

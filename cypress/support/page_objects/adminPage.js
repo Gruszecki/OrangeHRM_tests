@@ -13,6 +13,16 @@ class AdminPage {
         cy.contains('button', 'Add').click()
     }
 
+    deleteUsersPrivilegesByUsername(username) {
+        this.fillFields(username)
+        general.clickButton('Search')
+        cy.contains('.oxd-table-row', username).then(tableRow => {
+            cy.wrap(tableRow).find('.bi-trash').click()
+            general.clickButton('Yes, Delete')
+            general.verifyToast('Successfully Deleted')
+        })
+    }
+
     verifyPageContent() {
         cy.get('.oxd-topbar-header-title h6').then(topbarTitle => {
             cy.wrap(topbarTitle)
@@ -49,16 +59,21 @@ class AdminPage {
     }
 
     verifyNewUsersPrivileges(username, userRole, employeeName, status) {
-        cy.contains('.oxd-input-group', enumAddUserPrivilegesLabels.username).find('input').then(usernameInput => {
-            this.fillFields(username)
-            general.clickButton('Search')
-        })
+        this.fillFields(username)
+        general.clickButton('Search')
 
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).should('contain', userRole)
             cy.wrap(tableRow).should('contain', employeeName)
             cy.wrap(tableRow).should('contain', status)
         })
+    }
+
+    verifyNoUserFoundInTable(username) {
+        this.fillFields(username)
+        general.clickButton('Search')
+
+        cy.get('.orangehrm-container').should('not.contain', '.oxd-table-body')
     }
 }
 
