@@ -85,7 +85,7 @@ describe('User rights CRUD', () => {
         general.verifyToast('No Records Found')
     })
 
-    it.only('Create user\'s privileges: valid', () => {
+    it('Create user\'s privileges: valid', () => {
         onAdminPage.clickAdd()
         onAddUserPrivilegesPage.fillFields(
             enumUserRoles.admin, 
@@ -102,7 +102,7 @@ describe('User rights CRUD', () => {
         onAdminPage.verifyUsersPrivileges(USERNAME, enumUserRoles.admin, `${FIRSTNAME} ${LASTNAME}`, enumUserStatus.enabled)
     })
 
-    it.only('Update user\'s privileges data: valid', () => {
+    it('Update user\'s privileges data: valid', () => {
         onAdminPage.editUserPrivileges(USERNAME)
 
         USERNAME = `${FIRSTNAME}${LASTNAME}`
@@ -110,5 +110,11 @@ describe('User rights CRUD', () => {
         general.verifyToast('Successfully Updated')
         navigateTo.adminPage()
         onAdminPage.verifyUsersPrivileges(USERNAME, enumUserRoles.ess, `${FIRSTNAME} ${LASTNAME}`, enumUserStatus.disabled)
+    })
+
+    it('Delete user\'s privileges: valid', () => {
+        onAdminPage.deleteUsersPrivilegesByUsername(USERNAME)
+        general.verifyToast('Successfully Deleted')
+        onAdminPage.verifyNoUserFoundInTable(USERNAME)
     })
 })
