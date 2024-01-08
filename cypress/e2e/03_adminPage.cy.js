@@ -63,10 +63,10 @@ describe('User rights CRUD', () => {
         navigateTo.adminPage()
     })
 
-    // after('Delete created user', () => {
-    //     navigateTo.pimPage()
-    //     onPimPage.deleteUserById(EMPLOYEE_ID)
-    // })
+    after('Delete created user', () => {
+        navigateTo.pimPage()
+        onPimPage.deleteUserById(EMPLOYEE_ID)
+    })
 
     it('Cancel adding user\'s privileges', () => {
         onAdminPage.clickAdd()
