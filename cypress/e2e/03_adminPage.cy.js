@@ -8,6 +8,7 @@ import { enumAddEmployeeLabels, enumUserRoles, enumUserStatus } from "../support
 import { onPimPage } from "../support/page_objects/pimPage"
 import { onAddEmployeePage } from "../support/page_objects/addEmployeePage"
 import { general } from "../support/general"
+import { onEditUserPrivilegesPage } from "../support/page_objects/editUserPrivilegesPage"
 
 describe('Admin page content', () => {
     beforeEach('Go to login page', () => {
@@ -25,8 +26,8 @@ describe('User rights CRUD', () => {
     const FIRSTNAME = general.generateRandomName(3)
     const MIDDLENAME = general.generateRandomName(4)
     const LASTNAME = general.generateRandomName(5)
-    const PASSWORD = general.generateRandomPassword(10)
-    const USERNAME = `${FIRSTNAME.charAt(0)}${LASTNAME}`
+    var PASSWORD = general.generateRandomPassword(10)
+    var USERNAME = `${FIRSTNAME.charAt(0)}${LASTNAME}`
     var EMPLOYEE_ID = general.generateRandomId()
 
     console.log(`Generated user name: ${FIRSTNAME} ${MIDDLENAME} ${LASTNAME}`)
@@ -38,7 +39,7 @@ describe('User rights CRUD', () => {
         onPimPage.clickAdd()
 
         // Get user ID if not provided
-        if(!EMPLOYEE_ID) {
+        if (!EMPLOYEE_ID) {
             cy.get('.oxd-input-group').then(idLabel => {        
                 cy.wrap(idLabel)
                     .contains(enumAddEmployeeLabels.employeeId)
@@ -62,35 +63,10 @@ describe('User rights CRUD', () => {
         navigateTo.adminPage()
     })
 
-    after('Delete created user', () => {
-        navigateTo.pimPage()
-        onPimPage.deleteUserById(EMPLOYEE_ID)
-    })
-
-    it('Create valid user\'s privileges', () => {
-        onAdminPage.clickAdd()
-        onAddUserPrivilegesPage.fillFields(
-            enumUserRoles.admin, 
-            `${FIRSTNAME} ${LASTNAME}`, 
-            enumUserStatus.enabled, 
-            USERNAME, 
-            PASSWORD, 
-            PASSWORD
-        )
-        onAddUserPrivilegesPage.clickSave()
-
-        general.verifyToast('Successfully Saved')
-        navigateTo.adminPage()
-        onAdminPage.verifyNewUsersPrivileges(
-            USERNAME, 
-            enumUserRoles.admin, 
-            `${FIRSTNAME} ${LASTNAME}`, 
-            enumUserStatus.enabled
-        )
-
-        navigateTo.adminPage()
-        onAdminPage.deleteUsersPrivilegesByUsername(USERNAME)
-    })
+    // after('Delete created user', () => {
+    //     navigateTo.pimPage()
+    //     onPimPage.deleteUserById(EMPLOYEE_ID)
+    // })
 
     it('Cancel adding user\'s privileges', () => {
         onAdminPage.clickAdd()
@@ -107,5 +83,32 @@ describe('User rights CRUD', () => {
 
         onAdminPage.verifyNoUserFoundInTable(USERNAME)
         general.verifyToast('No Records Found')
+    })
+
+    it.only('Create user\'s privileges: valid', () => {
+        onAdminPage.clickAdd()
+        onAddUserPrivilegesPage.fillFields(
+            enumUserRoles.admin, 
+            `${FIRSTNAME} ${LASTNAME}`, 
+            enumUserStatus.enabled, 
+            USERNAME, 
+            PASSWORD, 
+            PASSWORD
+        )
+        onAddUserPrivilegesPage.clickSave()
+
+        general.verifyToast('Successfully Saved')
+        navigateTo.adminPage()
+        onAdminPage.verifyUsersPrivileges(USERNAME, enumUserRoles.admin, `${FIRSTNAME} ${LASTNAME}`, enumUserStatus.enabled)
+    })
+
+    it.only('Update user\'s privileges data: valid', () => {
+        onAdminPage.editUserPrivileges(USERNAME)
+
+        USERNAME = `${FIRSTNAME}${LASTNAME}`
+        onEditUserPrivilegesPage.editPrivileges(enumUserRoles.ess, undefined, enumUserStatus.disabled, USERNAME)
+        general.verifyToast('Successfully Updated')
+        navigateTo.adminPage()
+        onAdminPage.verifyUsersPrivileges(USERNAME, enumUserRoles.ess, `${FIRSTNAME} ${LASTNAME}`, enumUserStatus.disabled)
     })
 })

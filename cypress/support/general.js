@@ -66,6 +66,13 @@ class General {
         cy.get('[role="listbox"] [role="option"]').contains(value).click()
     }
 
+    checkCheckbox(labelName, checked) {
+        cy.contains('.oxd-input-group', labelName).find('input').then(checkbox => {
+            if (checked) { cy.wrap(checkbox).check({force: true}) }
+            else { cy.wrap(checkbox).uncheck({force: true}) }
+        })
+    }
+
     clickButton(buttonText) {
         cy.contains('button', buttonText).click()
     }

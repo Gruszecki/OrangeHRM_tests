@@ -4,10 +4,10 @@ import { PageInputSystem } from "../pageInputSystem"
 
 class AdminPage extends PageInputSystem{
     fillFields(username, userRole, employeeName, status) {
-        if(username) { general.fillInputBox(enumAddUserPrivilegesLabels.username, username) }
-        if(userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
-        if(employeeName) { general.fillInputBoxWithHint(enumAddUserPrivilegesLabels.employeeName, employeeName) }
-        if(status) { general.selectFromDropdown(enumAddUserPrivilegesLabels.status, status) }
+        if (username) { general.fillInputBox(enumAddUserPrivilegesLabels.username, username) }
+        if (userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
+        if (employeeName) { general.fillInputBoxWithHint(enumAddUserPrivilegesLabels.employeeName, employeeName) }
+        if (status) { general.selectFromDropdown(enumAddUserPrivilegesLabels.status, status) }
     }
 
     deleteUsersPrivilegesByUsername(username) {
@@ -17,6 +17,14 @@ class AdminPage extends PageInputSystem{
             cy.wrap(tableRow).find('.bi-trash').click()
             general.clickButton('Yes, Delete')
             general.verifyToast('Successfully Deleted')
+        })
+    }
+
+    editUserPrivileges(username) {
+        this.fillFields(username)
+        this.clickSearch()
+        cy.contains('.oxd-table-row', username).then(tableRow => {
+            cy.wrap(tableRow).find('.bi-pencil-fill').click()
         })
     }
 
@@ -55,7 +63,7 @@ class AdminPage extends PageInputSystem{
         })
     }
 
-    verifyNewUsersPrivileges(username, userRole, employeeName, status) {
+    verifyUsersPrivileges(username, userRole, employeeName, status) {
         this.fillFields(username)
         this.clickSearch()
 
