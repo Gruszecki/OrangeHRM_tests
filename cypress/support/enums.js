@@ -1,11 +1,13 @@
 export const enumUserRoles = {
     admin: 'Admin',
-    ess: 'ESS'
+    ess: 'ESS',
+    select: '-- Select --'
 }
 
 export const enumUserStatus = {
     enabled: 'Enabled',
-    disabled: 'Disabled'
+    disabled: 'Disabled',
+    select: '-- Select --'
 }
 
 export const enumEmployeeInformationLabels = {

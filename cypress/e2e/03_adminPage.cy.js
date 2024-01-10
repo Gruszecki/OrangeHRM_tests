@@ -63,10 +63,10 @@ describe('User rights CRUD', () => {
         navigateTo.adminPage()
     })
 
-    // after('Delete created user', () => {
-    //     navigateTo.pimPage()
-    //     onPimPage.deleteUserById(EMPLOYEE_ID)
-    // })
+    after('Delete created user', () => {
+        navigateTo.pimPage()
+        onPimPage.deleteUserById(EMPLOYEE_ID)
+    })
 
     it('Cancel adding user\'s privileges', () => {
         onAdminPage.clickAdd()
@@ -85,7 +85,7 @@ describe('User rights CRUD', () => {
         general.verifyToast('No Records Found')
     })
 
-    it.only('Create user\'s privileges: empty data', () => {
+    it('Create user\'s privileges: empty required fields', () => {
         onAdminPage.clickAdd()
         onAddUserPrivilegesPage.clickSave()
 
@@ -118,6 +118,32 @@ describe('User rights CRUD', () => {
         general.verifyToast('Successfully Updated')
         navigateTo.adminPage()
         onAdminPage.verifyUsersPrivileges(USERNAME, enumUserRoles.ess, `${FIRSTNAME} ${LASTNAME}`, enumUserStatus.disabled)
+    })
+
+    it('Filter user role', () => {
+        onAdminPage.editUserPrivileges(USERNAME)
+        onEditUserPrivilegesPage.editPrivileges(enumUserRoles.admin)
+        general.verifyToast('Successfully Updated')
+        
+        cy.wrap(onAdminPage.verifyFilteredData(undefined, enumUserRoles.admin))
+            onAdminPage.editUserPrivileges(USERNAME)
+            onEditUserPrivilegesPage.editPrivileges(enumUserRoles.ess)
+            general.verifyToast('Successfully Updated')
+            onAdminPage.verifyFilteredData(undefined, enumUserRoles.ess)
+
+    })
+
+    it('Filter user status', () => {
+        onAdminPage.editUserPrivileges(USERNAME)
+        onEditUserPrivilegesPage.editPrivileges(undefined, undefined, enumUserStatus.disabled)
+        general.verifyToast('Successfully Updated')
+
+        onAdminPage.verifyFilteredData(undefined, undefined, undefined, enumUserStatus.disabled)
+            onAdminPage.editUserPrivileges(USERNAME)
+            onEditUserPrivilegesPage.editPrivileges(undefined, undefined, enumUserStatus.enabled)
+            general.verifyToast('Successfully Updated')
+            onAdminPage.verifyFilteredData(undefined, undefined, undefined, enumUserStatus.enabled)
+
     })
 
     it('Delete user\'s privileges', () => {

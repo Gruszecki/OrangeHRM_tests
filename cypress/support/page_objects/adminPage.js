@@ -79,6 +79,20 @@ class AdminPage extends PageInputSystem{
         this.clickSearch()
         cy.get('.orangehrm-container').should('not.contain', '.oxd-table-body')
     }
+
+    verifyFilteredData(username, userRole, employeeName, status) {
+        cy.wrap(onAdminPage.fillFields(username, userRole, employeeName, status)).then(() => {
+            cy.wrap(onAdminPage.clickSearch()).then(() => {
+                cy.wait(1000)
+                cy.get('.oxd-table-body .oxd-table-row').each(tableRow => {
+                    if (username) { cy.wrap(tableRow).should('contain', username) }
+                    if (userRole) { cy.wrap(tableRow).should('contain', userRole) }
+                    if (employeeName) { cy.wrap(tableRow).should('contain', employeeName) }
+                    if (status) { cy.wrap(tableRow).should('contain', status) }
+                })
+            })
+        })
+    }
 }
 
 export const onAdminPage = new AdminPage()
