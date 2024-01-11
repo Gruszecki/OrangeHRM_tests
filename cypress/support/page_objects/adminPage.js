@@ -1,4 +1,4 @@
-import { enumAddUserPrivilegesLabels } from "../enums"
+import { enumAddUserPrivilegesLabels, enumUserStatus } from "../enums"
 import { general } from "../general"
 import { PageInputSystem } from "../pageInputSystem"
 
@@ -91,6 +91,16 @@ class AdminPage extends PageInputSystem{
                     if (status) { cy.wrap(tableRow).should('contain', status) }
                 })
             })
+        })
+    }
+
+    verifyInputFieldsEmpty() {
+        cy.get('input').each(input => {
+            cy.wrap(input).invoke('text').should('contain', '')
+        })
+
+        cy.get('.oxd-select-text-input').each(selectInput => {
+            cy.wrap(selectInput).should('contain', enumUserStatus.select)
         })
     }
 }

@@ -146,6 +146,12 @@ describe('User rights CRUD', () => {
 
     })
 
+    it('Reset filter settings', () => {
+        onAdminPage.fillFields(USERNAME, enumUserRoles.ess, `${FIRSTNAME} ${LASTNAME}`, enumUserStatus.enabled)
+        general.clickButton('Reset')
+        onAdminPage.verifyInputFieldsEmpty()
+    })
+
     it('Delete user\'s privileges', () => {
         onAdminPage.deleteUsersPrivilegesByUsername(USERNAME)
         general.verifyToast('Successfully Deleted')
