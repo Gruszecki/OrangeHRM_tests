@@ -1,56 +1,60 @@
+/// <reference types="cypress" />
+
+import { enumSidePanelNames } from "../enums"
+
 class NavigationPage {
     selectMenuItem(name) {
         cy.get('.oxd-sidepanel-body').contains('li', name).click()
     }
     
     adminPage() {
-        this.selectMenuItem('Admin')
+        this.selectMenuItem(enumSidePanelNames.admin)
     }
 
     pimPage() {
-        this.selectMenuItem('PIM')
+        this.selectMenuItem(enumSidePanelNames.pim)
     }
     
     leavePage() {
-        this.selectMenuItem('Leave')
+        this.selectMenuItem(enumSidePanelNames.leave)
     }
     
     timePage() {
-        this.selectMenuItem('Time')
+        this.selectMenuItem(enumSidePanelNames.time)
     }
     
     recruitmentPage() {
-        this.selectMenuItem('Recruitment')
+        this.selectMenuItem(enumSidePanelNames.recruitment)
     }
     
     myInfoPage() {
-        this.selectMenuItem('My Info')
+        this.selectMenuItem(enumSidePanelNames.myInfo)
     }
     
     performancePage() {
-        this.selectMenuItem('Performance')
+        this.selectMenuItem(enumSidePanelNames.performance)
     }
     
     dashboardPage() {
-        this.selectMenuItem('Dashboard')
+        this.selectMenuItem(enumSidePanelNames.dashboard)
     }
     
     directoryPage() {
-        this.selectMenuItem('Directory')
+        this.selectMenuItem(enumSidePanelNames.directory)
     }
     
     maintenancePage() {
-        this.selectMenuItem('Maintenance')
+        this.selectMenuItem(enumSidePanelNames.maintenance)
         cy.get('input[name="password"]').type(Cypress.env('password'))
         cy.get('button[type="submit"]').click()
     }
     
     claimPage() {
-        this.selectMenuItem('Claim')
+        this.selectMenuItem(enumSidePanelNames.claim)
     }
     
     buzzPage() {
-        this.selectMenuItem('Buzz')
+        this.selectMenuItem(enumSidePanelNames.buzz)
     }
 }
 

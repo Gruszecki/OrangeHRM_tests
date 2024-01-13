@@ -1,3 +1,18 @@
+export const enumSidePanelNames = {
+    admin: 'Admin',
+    pim: 'PIM',
+    leave: 'Leave',
+    time: 'Time',
+    recruitment: 'Recruitment',
+    myInfo: 'My Info',
+    performance: 'Performance',
+    dashboard: 'Dashboard',
+    directory: 'Directory',
+    maintenance: 'Maintenance',
+    claim: 'Claim',
+    buzz: 'Buzz'
+}
+
 export const enumUserRoles = {
     admin: 'Admin',
     ess: 'ESS',
