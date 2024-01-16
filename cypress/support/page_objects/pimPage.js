@@ -22,6 +22,37 @@ class PimPage extends PageInputSystem{
             general.verifyToast('Successfully Deleted')
         })
     }
+
+    verifyPageContent() {
+        cy.get('.oxd-topbar-header-title h6').should('contain', 'PIM')
+        cy.get('.oxd-topbar-body nav[role="navigation"] li').then(topbarMenu => {
+            cy.wrap(topbarMenu)
+                .should('contain', 'Configuration')
+                .and('contain', 'Employee List')
+                .and('contain', 'Add Employee')
+                .and('contain', 'Reports')
+        })
+        cy.get('.oxd-table-filter').then(filterBar => {
+            cy.wrap(filterBar)
+                .should('contain', 'Employee Information')
+                .and('contain', 'Employee Name')
+                .and('contain', 'Employee Id')
+                .and('contain', 'Employment Status')
+                .and('contain', 'Include')
+                .and('contain', 'Supervisor Name')
+                .and('contain', 'Job Title')
+                .and('contain', 'Sub Unit')
+            cy.wrap(filterBar).find('input').should('have.length', 3)
+            cy.wrap(filterBar).find('.oxd-select-wrapper').should('have.length', 4)
+            cy.wrap(filterBar).find('button')
+                .should('contain', 'Reset')
+                .and('contain', 'Search')
+        })
+        cy.get('.orangehrm-paper-container').then(records => {
+            cy.wrap(records).find('button').should('contain', 'Add')
+            cy.wrap(records).find('.orangehrm-container')
+        })
+    }
 }
 
 export const onPimPage = new PimPage()

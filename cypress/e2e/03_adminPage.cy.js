@@ -130,7 +130,6 @@ describe('User rights CRUD', () => {
             onEditUserPrivilegesPage.editPrivileges(enumUserRoles.ess)
             general.verifyToast('Successfully Updated')
             onAdminPage.verifyFilteredData(undefined, enumUserRoles.ess)
-
     })
 
     it('Filter user status', () => {
@@ -143,7 +142,6 @@ describe('User rights CRUD', () => {
             onEditUserPrivilegesPage.editPrivileges(undefined, undefined, enumUserStatus.enabled)
             general.verifyToast('Successfully Updated')
             onAdminPage.verifyFilteredData(undefined, undefined, undefined, enumUserStatus.enabled)
-
     })
 
     it('Reset filter settings', () => {
