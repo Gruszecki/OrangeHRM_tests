@@ -56,6 +56,13 @@ class NavigationPage {
     buzzPage() {
         this.selectMenuItem(enumSidePanelNames.buzz)
     }
+    
+    topbarMenuItem(primary, secondary) {
+        cy.get(`.oxd-topbar-body-nav-tab`).contains(`${primary}`).then(dropdown => {
+            cy.wrap(dropdown).click()
+            cy.get('[role="menuitem"]').contains(`${secondary}`).click()
+        })
+    }
 }
 
 export const navigateTo = new NavigationPage()

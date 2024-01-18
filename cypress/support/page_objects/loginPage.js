@@ -1,8 +1,15 @@
-class loginPage {
+import { general } from "../general"
+import { PageInputSystem } from "../pageInputSystem"
+
+class loginPage extends PageInputSystem{
+    fillFields(username, password) {
+        if (username) { general.fillInputBox('Username', username) }
+        if (password) { general.fillInputBox('Password', password) }
+    }
+
     submitLoginData(username, password) {
-        if (username) { cy.get('input[name="username"]').type(username) }
-        if (password) { cy.get('input[type="password"]').type(password) }
-        cy.get('button[type="submit"]').click()
+        this.fillFields(username, password) 
+        general.clickButton('Login')
     }
 
     verifyLoginPass() {

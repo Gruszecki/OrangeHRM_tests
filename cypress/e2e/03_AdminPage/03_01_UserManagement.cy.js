@@ -10,7 +10,7 @@ import { onAddEmployeePage } from "../../support/page_objects/addEmployeePage"
 import { general } from "../../support/general"
 import { onEditUserPrivilegesPage } from "../../support/page_objects/editUserPrivilegesPage"
 
-describe('Admin page content', () => {
+describe('Admin/User Management page content', () => {
     beforeEach('Go to login page', () => {
         cy.openLoginPage()
         onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
@@ -18,7 +18,7 @@ describe('Admin page content', () => {
     })
 
     it('Verify page content', () => {
-        onAdminPage.verifyPageContent()
+        onAdminPage.verifyUserManagementContent()
     })
 })
 
@@ -126,10 +126,10 @@ describe('User rights CRUD', () => {
         general.verifyToast('Successfully Updated')
         
         cy.wrap(onAdminPage.verifyFilteredData(undefined, enumUserRoles.admin))
-            onAdminPage.editUserPrivileges(USERNAME)
-            onEditUserPrivilegesPage.editPrivileges(enumUserRoles.ess)
-            general.verifyToast('Successfully Updated')
-            onAdminPage.verifyFilteredData(undefined, enumUserRoles.ess)
+        onAdminPage.editUserPrivileges(USERNAME)
+        onEditUserPrivilegesPage.editPrivileges(enumUserRoles.ess)
+        general.verifyToast('Successfully Updated')
+        onAdminPage.verifyFilteredData(undefined, enumUserRoles.ess)
     })
 
     it('Filter user status', () => {
@@ -138,10 +138,10 @@ describe('User rights CRUD', () => {
         general.verifyToast('Successfully Updated')
 
         onAdminPage.verifyFilteredData(undefined, undefined, undefined, enumUserStatus.disabled)
-            onAdminPage.editUserPrivileges(USERNAME)
-            onEditUserPrivilegesPage.editPrivileges(undefined, undefined, enumUserStatus.enabled)
-            general.verifyToast('Successfully Updated')
-            onAdminPage.verifyFilteredData(undefined, undefined, undefined, enumUserStatus.enabled)
+        onAdminPage.editUserPrivileges(USERNAME)
+        onEditUserPrivilegesPage.editPrivileges(undefined, undefined, enumUserStatus.enabled)
+        general.verifyToast('Successfully Updated')
+        onAdminPage.verifyFilteredData(undefined, undefined, undefined, enumUserStatus.enabled)
     })
 
     it('Reset filter settings', () => {
