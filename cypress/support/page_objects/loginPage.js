@@ -1,7 +1,6 @@
 import { general } from "../general"
-import { PageInputSystem } from "../pageInputSystem"
 
-class loginPage extends PageInputSystem{
+class loginPage {
     fillFields(username, password) {
         if (username) { general.fillInputBox('Username', username) }
         if (password) { general.fillInputBox('Password', password) }

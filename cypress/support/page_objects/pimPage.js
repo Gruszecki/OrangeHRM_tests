@@ -1,8 +1,7 @@
 import { enumEmployeeInformationLabels } from "../enums"
 import { general } from "../general"
-import { PageInputSystem } from "../pageInputSystem"
 
-class PimPage extends PageInputSystem{
+class PimPage {
     fillFields(employeeName, employeeId, employmentStatus, include, supervisorName, jobTitle, subUnit) {
         if(employeeName) { general.fillInputBoxWithHint(enumEmployeeInformationLabels.employeeName, employeeName) }
         if(employeeId) { general.fillInputBox(enumEmployeeInformationLabels.employeeId, employeeId) }
@@ -15,7 +14,7 @@ class PimPage extends PageInputSystem{
 
     deleteUserById(id) {
         this.fillFields(undefined, id)
-        this.clickSearch()
+        general.clickButton('Search')
         cy.contains('.oxd-table-row', id).then(tableRow => {
             cy.wrap(tableRow).find('.bi-trash').click()
             general.clickButton('Yes, Delete')

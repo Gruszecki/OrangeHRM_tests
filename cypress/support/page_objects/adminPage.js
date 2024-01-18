@@ -1,8 +1,7 @@
 import { enumAddUserPrivilegesLabels, enumUserStatus } from "../enums"
 import { general } from "../general"
-import { PageInputSystem } from "../pageInputSystem"
 
-class AdminPage extends PageInputSystem{
+class AdminPage {
     fillFields(username, userRole, employeeName, status) {
         if (username) { general.fillInputBox(enumAddUserPrivilegesLabels.username, username) }
         if (userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
@@ -19,7 +18,7 @@ class AdminPage extends PageInputSystem{
 
     deleteUsersPrivilegesByUsername(username) {
         this.fillFields(username)
-        this.clickSearch()
+        general.clickButton('Search')
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).find('.bi-trash').click()
             general.clickButton('Yes, Delete')
@@ -29,7 +28,7 @@ class AdminPage extends PageInputSystem{
 
     editUserPrivileges(username) {
         this.fillFields(username)
-        this.clickSearch()
+        general.clickButton('Search')
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).find('.bi-pencil-fill').click()
         })
@@ -80,7 +79,7 @@ class AdminPage extends PageInputSystem{
 
     verifyUsersPrivileges(username, userRole, employeeName, status) {
         this.fillFields(username)
-        this.clickSearch()
+        general.clickButton('Search')
 
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).should('contain', userRole)
@@ -91,13 +90,13 @@ class AdminPage extends PageInputSystem{
 
     verifyNoUserFoundInTable(username) {
         this.fillFields(username)
-        this.clickSearch()
+        general.clickButton('Search')
         cy.get('.orangehrm-container').should('not.contain', '.oxd-table-body')
     }
 
     verifyFilteredData(username, userRole, employeeName, status) {
         cy.wrap(onAdminPage.fillFields(username, userRole, employeeName, status)).then(() => {
-            cy.wrap(onAdminPage.clickSearch()).then(() => {
+            cy.wrap(general.clickButton('Search')).then(() => {
                 cy.wait(1000)
                 cy.get('.oxd-table-body .oxd-table-row').each(tableRow => {
                     if (username) { cy.wrap(tableRow).should('contain', username) }

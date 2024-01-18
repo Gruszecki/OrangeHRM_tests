@@ -1,8 +1,7 @@
 import { enumAddUserPrivilegesLabels } from "../enums";
 import { general } from "../general";
-import { PageInputSystem } from "../pageInputSystem";
 
-class EditUserPrivilegesPage extends PageInputSystem {
+class EditUserPrivilegesPage {
     fillFields(userRole, employeeName, status, username, changePassword, password, confirmPassword) {
         if (userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
         if (employeeName) { general.fillInputBoxWithHint(enumAddUserPrivilegesLabels.employeeName, employeeName) }
@@ -18,7 +17,7 @@ class EditUserPrivilegesPage extends PageInputSystem {
 
     editPrivileges(userRole, employeeName, status, username, changePassword, password, confirmPassword) {
         this.fillFields(userRole, employeeName, status, username, changePassword, password, confirmPassword)
-        this.clickSave()
+        general.clickButton('Save')
     }
 }
 

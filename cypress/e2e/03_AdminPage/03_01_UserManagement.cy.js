@@ -36,7 +36,7 @@ describe('User rights CRUD', () => {
         cy.openLoginPage()
         onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
         navigateTo.pimPage()
-        onPimPage.clickAdd()
+        general.clickButton('Add')
 
         // Get user ID if not provided
         if (!EMPLOYEE_ID) {
@@ -69,7 +69,7 @@ describe('User rights CRUD', () => {
     })
 
     it('Cancel adding user\'s privileges', () => {
-        onAdminPage.clickAdd()
+        general.clickButton('Add')
         onAddUserPrivilegesPage.fillFields(
             enumUserRoles.admin, 
             `${FIRSTNAME} ${LASTNAME}`, 
@@ -78,7 +78,7 @@ describe('User rights CRUD', () => {
             PASSWORD, 
             PASSWORD
         )
-        onAddUserPrivilegesPage.clickCancel()
+        general.clickButton('Cancel')
         navigateTo.adminPage()
 
         onAdminPage.verifyNoUserFoundInTable(USERNAME)
@@ -86,15 +86,15 @@ describe('User rights CRUD', () => {
     })
 
     it('Create user\'s privileges: empty required fields', () => {
-        onAdminPage.clickAdd()
-        onAddUserPrivilegesPage.clickSave()
+        general.clickButton('Add')
+        general.clickButton('Save')
 
         let listOfMissingRequiredValues = Object.values(enumAddUserPrivilegesLabels)
         onAddUserPrivilegesPage.verifyRequiredFields(listOfMissingRequiredValues)
     })
 
     it('Create user\'s privileges: valid data', () => {
-        onAdminPage.clickAdd()
+        general.clickButton('Add')
         onAddUserPrivilegesPage.fillFields(
             enumUserRoles.admin, 
             `${FIRSTNAME} ${LASTNAME}`, 
@@ -103,7 +103,7 @@ describe('User rights CRUD', () => {
             PASSWORD, 
             PASSWORD
         )
-        onAddUserPrivilegesPage.clickSave()
+        general.clickButton('Save')
 
         general.verifyToast('Successfully Saved')
         navigateTo.adminPage()
