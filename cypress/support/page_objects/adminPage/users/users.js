@@ -1,5 +1,5 @@
-import { enumAddUserPrivilegesLabels, enumUserStatus } from "../enums"
-import { general } from "../general"
+import { enumAddUserPrivilegesLabels, enumUserStatus } from "../../../enums"
+import { general } from "../../../general"
 
 class AdminPage {
     fillFields(username, userRole, employeeName, status) {
@@ -7,13 +7,6 @@ class AdminPage {
         if (userRole) { general.selectFromDropdown(enumAddUserPrivilegesLabels.userRole, userRole) }
         if (employeeName) { general.fillInputBoxWithHint(enumAddUserPrivilegesLabels.employeeName, employeeName) }
         if (status) { general.selectFromDropdown(enumAddUserPrivilegesLabels.status, status) }
-    }
-
-    fillFieldsAddJobTitle(jobTitle, jobDescription, jobSpecification, note) {
-        if (jobTitle) { general.fillInputBox('Job Title', jobTitle) }
-        if (jobDescription) { general.fillTextArea('Job Description', jobDescription) }
-        // TODO: Job Specification
-        if (note) { general.fillTextArea('Job Description', note) }
     }
 
     deleteUsersPrivilegesByUsername(username) {
@@ -30,11 +23,11 @@ class AdminPage {
         this.fillFields(username)
         general.clickButton('Search')
         cy.contains('.oxd-table-row', username).then(tableRow => {
-            cy.wrap(tableRow).find('.bi-pencil-fill').click()
+            general.clickPencil(tableRow)
         })
     }
 
-    verifyUserManagementContent() {
+    verifyPageContent() {
         cy.get('.oxd-topbar-header-title h6').then(topbarTitle => {
             cy.wrap(topbarTitle)
                 .should('contain', 'Admin')
@@ -69,13 +62,6 @@ class AdminPage {
         })
     }
 
-    verifyJobContent() {
-        cy.get('.oxd-topbar-header-title h6').then(topbarTitle => {
-            cy.wrap(topbarTitle)
-                .should('contain', 'Admin')
-                .and('contain', 'Job')
-        })
-    }
 
     verifyUsersPrivileges(username, userRole, employeeName, status) {
         this.fillFields(username)
@@ -91,7 +77,7 @@ class AdminPage {
     verifyNoUserFoundInTable(username) {
         this.fillFields(username)
         general.clickButton('Search')
-        cy.get('.orangehrm-container').should('not.contain', '.oxd-table-body')
+        general.verifyNoUserFoundInTable()
     }
 
     verifyFilteredData(username, userRole, employeeName, status) {
@@ -117,20 +103,7 @@ class AdminPage {
             cy.wrap(selectInput).should('contain', enumUserStatus.select)
         })
     }
-    
-    verifyJobTitlePresence(title, description) {
-        cy.get('.oxd-table-row').contains(title).parents('.oxd-table-row').then(row => {
-            cy.wrap(row).should('contain', title)
-            if (description) { 
-                if (description.length >= 50) {
-                    cy.wrap(row).should('contain', `${description.slice(0, 50)}...`)
-                    cy.wrap(row).should('contain', 'Show More')
-                } else {
-                    cy.wrap(row).should('contain', description)
-                }
-            }
-        })
-    }
+
 }
 
 export const onAdminPage = new AdminPage()

@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 
-import { onAddUserPrivilegesPage } from "../../support/page_objects/addUserPrivilegesPage"
-import { onAdminPage } from "../../support/page_objects/adminPage"
+import { onAddUserPrivilegesPage } from "../../support/page_objects/adminPage/users/addUserPrivilegesPage"
+import { onAdminPage } from "../../support/page_objects/adminPage/users/users"
 import { onLoginPage } from "../../support/page_objects/loginPage"
 import { navigateTo } from "../../support/page_objects/navigation"
 import { enumAddEmployeeLabels, enumAddUserPrivilegesLabels, enumUserRoles, enumUserStatus } from "../../support/enums"
 import { onPimPage } from "../../support/page_objects/pimPage"
 import { onAddEmployeePage } from "../../support/page_objects/addEmployeePage"
 import { general } from "../../support/general"
-import { onEditUserPrivilegesPage } from "../../support/page_objects/editUserPrivilegesPage"
+import { onEditUserPrivilegesPage } from "../../support/page_objects/adminPage/users/editUserPrivilegesPage"
 
 describe('Admin/User Management page content', () => {
     beforeEach('Go to login page', () => {
@@ -18,7 +18,7 @@ describe('Admin/User Management page content', () => {
     })
 
     it('Verify page content', () => {
-        onAdminPage.verifyUserManagementContent()
+        onAdminPage.verifyPageContent()
     })
 })
 

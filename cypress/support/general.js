@@ -81,8 +81,16 @@ class General {
         cy.contains('button', buttonText).click()
     }
 
+    clickPencil(tableRow) {
+        cy.wrap(tableRow).find('.bi-pencil-fill').click()
+    }
+
     verifyToast(info) {
         cy.get('.oxd-toast').should('contain', info)
+    }
+
+    verifyNoUserFoundInTable() {
+        cy.get('.orangehrm-container').should('not.contain', '.oxd-table-body')
     }
 }
 

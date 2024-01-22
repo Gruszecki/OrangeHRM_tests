@@ -1,5 +1,5 @@
-import { enumAddUserPrivilegesLabels } from "../enums"
-import { general } from "../general"
+import { enumAddUserPrivilegesLabels } from "../../../enums"
+import { general } from "../../../general"
 
 class AddUserPrivilegesPage {
     fillFields(userRole, employeeName, userStatus, username, password, confirmPassword) {
