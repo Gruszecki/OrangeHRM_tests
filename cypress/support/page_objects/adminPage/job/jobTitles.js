@@ -13,6 +13,13 @@ class JobTitlesPage {
             general.clickPencil(tableRow)
         })
     }
+
+    deleteJobTitle(jobTitle) {
+        cy.contains('.oxd-table-row', jobTitle).then(tableRow => {
+            cy.wrap(tableRow).find('.bi-trash').click()
+            general.clickButton('Yes, Delete')
+        })
+    }
     
     verifyPageContent() {
         cy.get('.oxd-topbar-header-title h6').then(topbarTitle => {
@@ -33,6 +40,12 @@ class JobTitlesPage {
                     cy.wrap(row).should('contain', description)
                 }
             }
+        })
+    }
+
+    verifyJobTitleAbsence(title) {
+        cy.get('.oxd-table-row').each(row => {
+            cy.wrap(row).should('not.contain', title)
         })
     }
 }

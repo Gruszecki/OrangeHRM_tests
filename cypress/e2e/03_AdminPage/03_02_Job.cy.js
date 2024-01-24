@@ -35,6 +35,8 @@ describe('Job Title CRUD', () => {
         general.clickButton('Save')
         general.verifyToast('Successfully Saved')
         onJobTitlesPage.verifyJobTitlePresence(title, description)
+
+        onJobTitlesPage.deleteJobTitle(title)
     })
 
     it('Add job title - long description', () => {
@@ -46,9 +48,11 @@ describe('Job Title CRUD', () => {
         general.clickButton('Save')
         general.verifyToast('Successfully Saved')
         onJobTitlesPage.verifyJobTitlePresence(title, description)
+
+        onJobTitlesPage.deleteJobTitle(title)
     })
 
-    it('Edit job title adn description', () => {
+    it('Edit job title and description', () => {
         const former_title = 'Janitor ' + general.generateRandomId()
         const updated_title = `${former_title} updated`
         const former_description =  "Maintaining cleanliness and security."
@@ -65,5 +69,21 @@ describe('Job Title CRUD', () => {
         general.clickButton('Save')
         general.verifyToast('Successfully Updated')
         onJobTitlesPage.verifyJobTitlePresence(updated_title, updated_description)
+
+        onJobTitlesPage.deleteJobTitle(updated_title)
+    })
+
+    it('Remove job title', () => {
+        const title = 'Janitor ' + general.generateRandomId()
+
+        general.clickButton('Add')
+        onJobTitlesPage.fillFieldsAddJobTitle(title)
+        general.clickButton('Save')
+        general.verifyToast('Successfully Saved')
+        onJobTitlesPage.verifyJobTitlePresence(title)
+
+        onJobTitlesPage.deleteJobTitle(title)
+        general.verifyToast('Successfully Deleted')
+        onJobTitlesPage.verifyJobTitleAbsence(title)
     })
 })

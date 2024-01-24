@@ -15,7 +15,6 @@ class AdminPage {
         cy.contains('.oxd-table-row', username).then(tableRow => {
             cy.wrap(tableRow).find('.bi-trash').click()
             general.clickButton('Yes, Delete')
-            general.verifyToast('Successfully Deleted')
         })
     }
 
