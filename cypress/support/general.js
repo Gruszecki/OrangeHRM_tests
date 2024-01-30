@@ -85,6 +85,13 @@ class General {
         cy.wrap(tableRow).find('.bi-pencil-fill').click()
     }
 
+    deleteTabelContent(content) {
+        cy.contains('.oxd-table-row', content).then(tableRow => {
+            cy.wrap(tableRow).find('.bi-trash').click()
+            general.clickButton('Yes, Delete')
+        })
+    }
+
     verifyToast(info) {
         cy.get('.oxd-toast').should('contain', info)
     }

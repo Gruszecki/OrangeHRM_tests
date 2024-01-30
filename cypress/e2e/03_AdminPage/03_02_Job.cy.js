@@ -2,6 +2,7 @@
 
 import { general } from "../../support/general"
 import { onJobTitlesPage } from "../../support/page_objects/adminPage/job/jobTitles"
+import { onPayGradesPage } from "../../support/page_objects/adminPage/job/paygrades"
 import { onLoginPage } from "../../support/page_objects/loginPage"
 import { navigateTo } from "../../support/page_objects/navigation"
 
@@ -36,7 +37,7 @@ describe('Job Title CRUD', () => {
         general.verifyToast('Successfully Saved')
         onJobTitlesPage.verifyJobTitlePresence(title, description)
 
-        onJobTitlesPage.deleteJobTitle(title)
+        general.deleteTabelContent(title)
     })
 
     it('Add job title - long description', () => {
@@ -49,7 +50,7 @@ describe('Job Title CRUD', () => {
         general.verifyToast('Successfully Saved')
         onJobTitlesPage.verifyJobTitlePresence(title, description)
 
-        onJobTitlesPage.deleteJobTitle(title)
+        general.deleteTabelContent(title)
     })
 
     it('Edit job title and description', () => {
@@ -70,7 +71,7 @@ describe('Job Title CRUD', () => {
         general.verifyToast('Successfully Updated')
         onJobTitlesPage.verifyJobTitlePresence(updated_title, updated_description)
 
-        onJobTitlesPage.deleteJobTitle(updated_title)
+        general.deleteTabelContent(updated_title)
     })
 
     it('Remove job title', () => {
@@ -82,8 +83,48 @@ describe('Job Title CRUD', () => {
         general.verifyToast('Successfully Saved')
         onJobTitlesPage.verifyJobTitlePresence(title)
 
-        onJobTitlesPage.deleteJobTitle(title)
+        general.deleteTabelContent(title)
         general.verifyToast('Successfully Deleted')
         onJobTitlesPage.verifyJobTitleAbsence(title)
+    })
+})
+
+describe('Pay Grades CRUD', () => {
+    beforeEach('Go to login page', () => {
+        cy.openLoginPage()
+        onLoginPage.submitLoginData(Cypress.env('username'), Cypress.env('password'))
+        navigateTo.adminPage()
+        navigateTo.topbarMenuItem('Job', 'Pay Grades')
+    })
+
+    it.only('Add pay grade name only', () => {
+        const name = 'Grade ' + general.generateRandomId()
+
+        general.clickButton('Add')
+        general.fillInputBox('Name', name)
+        general.clickButton('Save')
+
+        cy.wait(1000)
+        navigateTo.topbarMenuItem('Job', 'Pay Grades')
+        onPayGradesPage.verifyPayGradeNameAndCurrency(name)
+
+        general.deleteTabelContent(name)
+    })
+
+    it.only('Add pay grade name and currency - no salary', () => {
+        const name = 'Grade ' + general.generateRandomId()
+        const currency = 'PLN - Polish Zloty'
+
+        general.clickButton('Add')
+        general.fillInputBox('Name', name)
+        general.clickButton('Save')
+
+        general.clickButton('Add')
+        general.selectFromDropdown('Currency', currency)
+        onPayGradesPage.clickSaveCurrency()
+
+        cy.wait(1000)
+        navigateTo.topbarMenuItem('Job', 'Pay Grades')
+        general.deleteTabelContent(name)
     })
 })
